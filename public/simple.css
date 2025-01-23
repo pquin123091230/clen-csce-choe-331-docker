@@ -27,5 +27,8 @@
  	}
 	BLOCKQUOTE { font-family: sans-serif ; font-style: normal}
         .note { margin-left: 5em; margin-right: 5em }
+	.firstRow {
+		font-weight: bold;
+	}
 -->
 </STYLE>
