@@ -43,6 +43,7 @@
 <!-- PHP testing area ................................ --> 
 <?php
     require __DIR__."/proc_csv.php";
+    require __DIR__."/proc_markdown.php";
 
    echo "<h1> Patrick Quinn 331 Project 1 </h1>\n";
 
@@ -54,6 +55,8 @@
 
    # FILE access 
    # $h = fopen("false.dat","r");
+
+   proc_markdown("../data/markdown.md");
 
    echo "<h3>Columns 1 and 3 </h3>";
    proc_csv2("data.dat", "1:3");
