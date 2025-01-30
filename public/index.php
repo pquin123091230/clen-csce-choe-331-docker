@@ -40,6 +40,11 @@
 <body>
 <div class="defaultFont">
 
+<h3>Search zone</h3>
+<form action="search.php" method="post">
+Search: <input type="text" name="name"> 
+<input type="submit">
+
 <!-- PHP testing area ................................ --> 
 <?php
     require __DIR__."/proc_csv.php";

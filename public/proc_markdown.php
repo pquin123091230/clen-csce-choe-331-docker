@@ -47,6 +47,8 @@ function proc_markdown($fileName) {
     $listOrdered = False;
     $listNum = 0;
     $listStartIndex = 0;
+    $listing = False;
+    $newlines = 0;
     while ($data = fgets($handle)) {
         
             $start = 0;
@@ -55,7 +57,14 @@ function proc_markdown($fileName) {
             $bold = False;
             $italic = False;
             $tStr = "";
+            $listing = False;
+            
             while ($current < strlen($data)) {
+                if ($data[$current] == "\n") {
+                    if ($current <= 2) {
+                        echo "<p>";
+                    }
+                }
                 if ($data[$current] == "#") {
                     if (strGet($data, $current+1) == "#") {
                         if (strGet($data, $current+2 ) == "#") {
@@ -116,6 +125,8 @@ function proc_markdown($fileName) {
                     $current = $linkEnd; //skip
                 }
                 else if ($data[$current] == "*") {
+                    $listing = True;
+                    $listOrdered = False;
                     $numSpaces = numPreceding($data, " ", $current-1);
                     $end = strpos($data, "\n", $current+1);
                     $dispStr = substr($data, $current+1, $end-$current-1);
@@ -136,10 +147,11 @@ function proc_markdown($fileName) {
                     $tStr = $tStr."<li>".$dispStr."</li>";
                     $current = $end;
                 }
-                else if ($data[$current] == "1" && strGet($data, $current+1) == ".") {
-                    $numSpaces = numPreceding($data, " ", $current-1);
+                else if (($data[$current] == "1" && strGet($data, $current+1) == ".")) {
+                    $listing = True;
+                    $numSpaces = 1;
                     $end = strpos($data, "\n", $current+1);
-                    $dispStr = substr($data, $current+1, $end-$current-1);
+                    $dispStr = substr($data, $current+2, $end-$current-1);
                     $listOrdered = True;
                     
                     if ($numSpaces > $listStartIndex) {
@@ -158,20 +170,46 @@ function proc_markdown($fileName) {
                     $tStr = $tStr."<li>".$dispStr."</li>";
                     $current = $end;
                 }
-                else {
-                    while ($listNum > 0) {
-                        $listNum -=1;
-                        if ($listOrdered) {
-                            $tStr = $tStr."</ol>";
-                        }
-                        else {
-                            $tStr = $tStr."</ul>";
-                        }
+                else if ($data[$current] == "-" && $listStartIndex == 1 && $listOrdered) {
+                    //ordered list nest
+                    $listing = True;
+                    $listOrdered = True;
+                    $numSpaces = 2;
+                    $end = strpos($data, "\n", $current+1);
+                    $dispStr = substr($data, $current+1, $end-$current-1);
+                    if ($numSpaces > $listStartIndex) {
+                        $tStr = $tStr."<ol>";
+                        $listStartIndex = $numSpaces;
+                        $listNum+=1;
                     }
+                    else if ($numSpaces < $listStartIndex) {
+                        $tStr = $tStr."</ol>";
+                        $listStartIndex = $numSpaces;
+                        $listNum-=1;
+                    }
+                    else {
+                        
+                    }
+                    $tStr = $tStr."<li>".$dispStr."</li>";
+                    $current = $end;
+                }
+                else {
                     $tStr = $tStr.$data[$current];
                 }
                 $current+=1;
                 
+            }
+            if (!$listing) {
+                while ($listNum > 0) {
+                    $listNum -=1;
+                    if ($listOrdered) {
+                        echo "\n</ol>";
+                    }
+                    else {
+                        echo "\n</ul>";
+                    }
+                }
+                $listStartIndex = 0;
             }
             if ($headingLevel > 0) {
                 echo "<h".$headingLevel.">";
