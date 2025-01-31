@@ -40,10 +40,7 @@
 <body>
 <div class="defaultFont">
 
-<h3>Search zone</h3>
-<form action="search.php" method="post">
-Search: <input type="text" name="name"> 
-<input type="submit">
+<h3><a href="search.php">Search zone</a></h3>
 
 <!-- PHP testing area ................................ --> 
 <?php

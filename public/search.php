@@ -55,7 +55,7 @@ if ($_POST["name"]) {
     for ($i = 0; $i < count($result); $i++) {
         echo '<a href="'.$result[$i].'">'.$result[$i].'</a><br>';
     }
-    if (count($result) > 0) {
+    if (count($result) > 0 && False) {
         $d = file_get_contents($result[0]);
         $doc = new DOMDocument();
         $doc->loadHTML($d);
