@@ -46,6 +46,7 @@
 <?php
     require __DIR__."/proc_csv.php";
     require __DIR__."/proc_markdown.php";
+    require __DIR__."/proc_gallery.php";
 
    echo "<h1> Patrick Quinn 331 Project 1 </h1>\n";
 
@@ -54,6 +55,10 @@
    echo " Hello world!<p/>\n";
 
    echo "<h3>Testing file loading:</h3>\n";
+
+   echo "<h4>GALLERY ZONE</h4><br>";
+   proc_gallery("../data/gallery.csv", "list", "size_largest");
+
 
    # FILE access 
    # $h = fopen("false.dat","r");
