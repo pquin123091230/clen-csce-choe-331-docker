@@ -1,4 +1,37 @@
+<html>
+    <body>
+        <h1>Gallery.php</h1>
+        
+
+    
+
 <?php
+    echo '<form action="proc_gallery.php", method="POST">
+    <b>Sort Mode:</b><br>';
+    echo radioButton("sortMode","orig","Original");
+    echo radioButton("sortMode","date_newest","Date Newest");
+    echo radioButton("sortMode","date_oldest", "Date Oldest");
+    echo radioButton("sortMode","size_largest","Size Largest");
+    echo radioButton("sortMode","size_smallest","Size Smallest");
+    echo radioButton("sortMode","rand","Random");
+
+    echo "<b>Display Mode:</b><br>";
+    echo radioButton("displayMode", "list", "List");
+    echo radioButton("displayMode", "matrix", "Matrix");
+    echo radioButton("displayMode", "details", "Details");
+
+    echo '<input type="submit">';
+
+    echo '</form>';
+
+    if ($_POST["sortMode"] && $_POST["displayMode"]) {
+        echo "<font color=\"blue\">DISPLAYING GALLERY ".$_POST["sortMode"].", ".$_POST["displayMode"].'</font><br>';
+        proc_gallery("../data/gallery.csv", $_POST["displayMode"], $_POST["sortMode"]);
+        
+      }
+function radioButton($name, $id, $label) {
+    return '<input type="radio", id="'.$id.'", name="'.$name.'", value="'.$id.'"> <label for="'.$id.'">'.$label.'</label><br>';
+}
 class galleryImage {
     public $name = "";
     public $directory = "";
@@ -29,17 +62,16 @@ function getWeight($fileName, $mode, $index) {
     return -1;
 }
 function proc_gallery($fileName, $mode, $sort_mode) {
-    $directory = substr($fileName, 0, strrpos($fileName, "/"));
+    //$directory = substr($fileName, 0, strrpos($fileName, "/"));
+    $directory = "";
     //echo $directory;
     $handle = fopen($fileName,"r") or die("Cannot open ".$fileName);
 
-echo "<table  border=\"1\">\n";
 
 $row = 0;
 $images = array();
 while ($data = fgets($handle)) {
-    
-    echo "<tr>\n";
+
     $inQuote = '';
     $data_cols = [];
     
@@ -67,19 +99,10 @@ while ($data = fgets($handle)) {
     array_push($data_cols, substr($data, $last));
     //Push last value
 
-    //$data_cols = preg_split('/,/',$data);
-    for ($k=0; $k<count($data_cols); ++$k) {
-        if ($row == 0) {
-            echo "  <td> <h3>".$data_cols[$k]."</h3></td>\n";
-        }
-        else {
-            echo "  <td> ".$data_cols[$k]." </td>\n";
-        }
-    }
-    echo "</tr>\n";
+    
     $item = new galleryImage;
     $item->name = $data_cols[0];
-    $item->directory = $directory."/".$item->name;
+    $item->directory = $directory.$item->name;
     $item->description = $data_cols[1];
     //echo $directory."/".$item->name;
     $item->weight = getWeight($item->directory, $sort_mode, $row);
@@ -91,15 +114,36 @@ while ($data = fgets($handle)) {
 fclose($handle);
 
 $images = sortImages($images);
-for ($i = 0; $i < count($images); $i++) {
-    echo $images[$i]->name.",".$images[$i]->weight."<br>";
-}
 
 echo "</table>\n<p/>";
+    if ($mode == "matrix") {
+        echo "<table> <tr>";
+    }
+    else if ($mode == "details") {
+        echo "<ul>";
+    }
+    $index = 0;
     foreach ($images as $image) {
         if ($mode == "list") {
-            echo "<img src=". $image->directory ." alt=".$image->directory."><br>";
+            echo '<img src="'. $image->name .'" alt="'.$image->directory.'" style="width:200px;height:200px;"><br>';
         }
+        else if ($mode == "matrix") {
+            
+            if ($index%3 == 0) {
+                echo "</tr><tr>";
+            }
+            $index+=1;
+            echo '<td><img src="'. $image->name .'" alt="'.$image->directory.'" style="width:200px;height:200px;"></td>';
+        }
+        else {
+            echo "<li>".$image->name.", ".$image->description."</li>";
+        }
+    }
+    if ($mode == "matrix") {
+        echo "</tr></table>";
+    }
+    else if ($mode == "details") {
+        echo "</ul>";
     }
 }
 function sortImages($array) {
@@ -123,3 +167,6 @@ function sortImages($array) {
     return $array;
 }
 ?>
+
+</body>
+</html>

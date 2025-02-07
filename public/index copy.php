@@ -46,7 +46,7 @@
 <?php
     require __DIR__."/proc_csv.php";
     require __DIR__."/proc_markdown.php";
-    //require __DIR__."/proc_gallery.php";
+    require __DIR__."/proc_gallery.php";
 
    echo "<h1> Patrick Quinn 331 Project 1 </h1>\n";
 
@@ -57,25 +57,8 @@
    echo "<h3>Testing file loading:</h3>\n";
 
    echo "<h4>GALLERY ZONE</h4><br>";
-   echo '<a href="proc_gallery.php">Gallery.php</a>';
    //echo '<img src="dat2.png"><br>';
-   /*echo "<h4>LIST, SIZE_LARGEST</h4><br>";
    proc_gallery("../data/gallery.csv", "list", "size_largest");
-
-   echo "<h4>MATRIX, DATE_OLDEST</h4><br>";
-   proc_gallery("../data/gallery.csv", "matrix", "date_oldest");
-
-   echo "<h4>DETAILS, RANDOM</h4><br>";
-   proc_gallery("../data/gallery.csv", "details", "rand");
-
-   echo "<h4>DETAILS, ORIGINAL</h4><br>";
-   proc_gallery("../data/gallery.csv", "details", "orig");
-
-   echo "<h4>DETAILS, SIZE_SMALLEST</h4><br>";
-   proc_gallery("../data/gallery.csv", "details", "size_smallest");
-
-   echo "<h4>DETAILS, DATE_NEWEST</h4><br>";
-   proc_gallery("../data/gallery.csv", "details", "date_newest");*/
 
 
    # FILE access 
