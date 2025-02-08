@@ -28,7 +28,7 @@ function search($string)  {
     }
     //find the webpages
     $pages = array();
-    array_push($pages, "index.php","search.php","action.php","fetch.php");
+    array_push($pages, "index.php","search.php","action.php","fetch.php", "gallery.php");
 
     $results = array();
     for ($i = 0; $i < count($pages); $i++) {
