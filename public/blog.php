@@ -37,10 +37,11 @@ Quinn and I am a 3rd year Computer Science major at Texas A&M university. In thi
 
 <ol>
     <li>Stack Overflow, “Stack Overflow - Where Developers Learn, Share, & Build Careers,” Stack Overflow, 2024. <a href=\"https://stackoverflow.com\">https://stackoverflow.com</a></li>
-    ‌<li>W3Schools, “W3Schools online web tutorials,” W3schools.com, 1999. <a href=\"https://www.w3schools.com\">https://www.w3schools.com</a></li>
+    <li>W3Schools, “W3Schools online web tutorials,” W3schools.com, 1999. <a href=\"https://www.w3schools.com\">https://www.w3schools.com</a></li>
     <li>The PHP Group, “PHP: Hypertext Preprocessor,” Php.net, Apr. 04, 2019. <a href=\"https://www.php.net\">https://www.php.net</a></li>
-‌
-‌</ol>
+    <li>Q. Hao, “What I Learned from Developing a Google Doc Add-on in Two Weeks,” Medium, Jun. 10, 2020. https://blog.bitsrc.io/what-i-learned-from-developing-a-google-doc-add-on-in-two-weeks-5985675aff81</li>
+    <li>“Correct your spelling & grammar - Computer - Docs Editors Help,” Google.com, 2000. https://support.google.com/docs/answer/57859?co=GENIE.Platform%3DDesktop&hl=en (accessed Feb. 07, 2019).</li>
+</ol>
 
 ", "2/10/25"));
 
