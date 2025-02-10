@@ -58,6 +58,8 @@
 
    echo "<h4>GALLERY ZONE</h4><br>";
    echo '<a href="proc_gallery.php">Gallery.php</a>';
+
+   echo '<a href="blog.php"><h4>BLOG.PHP</h4></a>';
    //echo '<img src="dat2.png"><br>';
    /*echo "<h4>LIST, SIZE_LARGEST</h4><br>";
    proc_gallery("../data/gallery.csv", "list", "size_largest");
